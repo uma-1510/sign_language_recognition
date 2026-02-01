@@ -46,30 +46,27 @@ code/
 ## Setup Instructions
 
 1. **Clone the repository**
-```bash
 git clone <your-repo-url>
 cd <repo-folder>
 
 2. Create virtual environment
-```bash
 python3 -m venv venv
 source venv/bin/activate  # Mac/Linux
 venv\Scripts\activate     # Windows
 
 3.Install dependencies
-```bash
 pip install -r requirements.txt
 
 4.Capture gesture data
-```bash
 python3 create_gesture_data.py
 
 5.Train the CNN
-```python3 trainCNN.py
+python3 trainCNN.py
 
 6.Test the model
 The trained model will be saved in the models/ folder.
 Use the CNN to predict gestures on new images or video feed.
+
 
 
 
