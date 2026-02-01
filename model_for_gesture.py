@@ -1,19 +1,31 @@
 import numpy as np
 import cv2
 import keras
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import tensorflow as tf
 
-model = keras.models.load_model(r"C:\Users\abhij\best_model_dataflair3.h5")
+model = keras.models.load_model("best_model_dataflair3.h5")
 
 background = None
 accumulated_weight = 0.5
 
 ROI_top = 100
 ROI_bottom = 300
-ROI_right = 150
-ROI_left = 350
+ROI_right = 350
+ROI_left = 150
 
+word_dict = {
+    0: 'Zero',
+    1: 'One',
+    2: 'Two',
+    3: 'Three',
+    4: 'Four',
+    5: 'Five',
+    6: 'Six',
+    7: 'Seven',
+    8: 'Eight',
+    9: 'Nine'
+}
 
 
 def cal_accum_avg(frame, accumulated_weight):
@@ -37,7 +49,12 @@ def segment_hand(frame, threshold=25):
     _ , thresholded = cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)
     
     #Fetching contours in the frame (These contours can be of hand or any other object in foreground) ...
-    image, contours, hierarchy = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(
+    thresholded.copy(),
+    cv2.RETR_EXTERNAL,
+    cv2.CHAIN_APPROX_SIMPLE
+)
+
 
     # If length of contours list = 0, means we didn't get any contours...
     if len(contours) == 0:
@@ -60,7 +77,7 @@ while True:
     frame_copy = frame.copy()
 
     # ROI from the frame
-    roi = frame[ROI_top:ROI_bottom, ROI_right:ROI_left]
+    roi = frame[ROI_top:ROI_bottom, ROI_left:ROI_right]
 
     gray_frame = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
     gray_frame = cv2.GaussianBlur(gray_frame, (9, 9), 0)

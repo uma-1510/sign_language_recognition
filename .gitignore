@@ -1,0 +1,28 @@
+
+---
+
+### **2️⃣ .gitignore**
+```gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data and models
+gestures_dataset/
+models/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
